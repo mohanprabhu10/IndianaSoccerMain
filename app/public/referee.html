@@ -14,11 +14,11 @@
     <link href="css/style.css" rel="stylesheet" type="text/css" />
   </head>
   <body>
-    <header>
+    <header>  
       <h1>
         <a href="index.html">
         <img src ="img/indianasoccerdark.png" height = "100px">
-        </a> &nbsp; Indiana Soccer Referee Union
+        </a> &nbsp; Indiana Soccer Referees Association
     </h1>
     </header>
 
@@ -73,15 +73,15 @@
                 <form v-on:submit.prevent="postBook" class="row g-3">
                     <div class="col-md-12">
                       <label for="inputTitle" class="form-label">Referee Name</label>
-                      <input type="text" v-model = "refereeForm.refereeName" class="form-control" id="inputTitle">
+                      <input type="text" v-model = "refereeForm.refereeName" class="form-control" id="inputTitle" required="required">
                     </div>
                     <div class="col-12">
                       <label for="inputYear" class="form-label">Age</label>
-                      <input type="text" v-model = "refereeForm.age" class="form-control" id="inputAddress">
+                      <input type="text" v-model = "refereeForm.age" class="form-control" id="inputAddress" required="required">
                     </div>
                     <div class="col-12">
                       <label for="inputAuthors" class="form-label">Grade</label>
-                      <input type="text" v-model = "refereeForm.refereeGrade" class="form-control" id="inputAddress2" placeholder="Scale of 0 to 100">
+                      <input type="text" v-model = "refereeForm.refereeGrade" class="form-control" id="inputAddress2" placeholder="Scale of 0 to 100" required="required">
                     </div>
                     <!-- <div class="col-md-12">
                       <label for="inputMSRP" class="form-label">Manufacturer's Suggested Retail Price</label>

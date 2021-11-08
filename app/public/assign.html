@@ -18,7 +18,7 @@
       <h1>
         <a href="index.html">
         <img src ="img/indianasoccerdark.png" height = "100px">
-        </a> &nbsp; Indiana Soccer Referee Union
+        </a> &nbsp; Indiana Soccer Referees Association
     </h1>
     </header>
 
@@ -47,69 +47,55 @@
         </nav>
         <div class = "row">
             <div class = "row" id="VueApp_InfoDisplay">
-                <!-- <table class="table table-striped table-hover">
+               <table class="table table-striped table-hover">
                     <thead>
                       <tr>
                         <th scope="col">Game Location</th>
                         <th scope="col">Game Date/Time</th>
+                        <th scope="col">Referee Assigned</th>
+                        <th scope="col">Assignment Status</th>
                         <th scope="col">Edit Action</th>
                         <th scope="col">Delete Action</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr v-for="game in games">
-                          <td>{{ game.gameLocation }}</td>
-                          <td>{{ game.gameDate }}</td>
-                          <td>{{ prettyDollar(book.msrp) }}</td> -->
-                          <!-- <td><button type="button" class="btn btn-outline-secondary btn-sm" v-on:click="selectGameToEdit(game)">Edit</button></td>
-                          <td><button type="button" class="btn btn-outline-secondary btn-sm" v-on:click="deleteGame(game)">Delete</button></td>
+                      <tr v-for="a in assignments">
+                          <td>{{ a.gameLocation }}</td>
+                          <td>{{ a.gameDate }}</td>
+                          <td>{{ a.refereeName }}</td>
+                          <td>{{ a.assignementStatus }}</td>
+                          <td><button type="button" class="btn btn-outline-secondary btn-sm" v-on:click="selectAssignmentToEdit(a)">Edit</button></td>
+                          <td><button type="button" class="btn btn-outline-secondary btn-sm" v-on:click="deleteAssignment(a)">Delete</button></td>
                       </tr>
                     </tbody>
-                  </table>  -->
+                  </table>
                 <!-- <formarea> -->
+
                     <label><b>Assign referees to games.</b></label>
-                    <hr>
                     <form v-on:submit.prevent="postAssign" class="row g-3">
                       <div class="col-12">
                         <label for="GameChoose" class="form-label">Choose Game Details</label>
-                        <select name="Games" v-model = "assignForm.gameId" class="form-select" id="GameChoose">
-                          <option v-for="game in games" v-bind:value="game.id">{{ game.gameLocation }}</option>
+                        <select name="Games" v-model = "assignForm.ganeId" class="form-select" id="GameChoose" required="required">
+                          <option v-for="game in games" v-bind:value="game.id">{{ game.gameLocation}}, {{game.gameDate}}</option>
+                        </select>
                       </div>
                       
                         <div class="col-12">
                           <label for="RefereeChoose" class="form-label">Choose a Referee</label>
-                          <select name="Referees" v-model = "assignForm.refereeId" class="form-select" id="RefereeChoose">
+                          <select name="Referees" v-model = "assignForm.refereeId" class="form-select" id="RefereeChoose" required="required">
                             <option v-for="referee in referees" v-bind:value="referee.id">{{ referee.refereeName }}</option>
+                          </select>
                         </div>
                         
                         <div class="col-12">
                           <label for="StatusChoose" class="form-label">Choose Assignment Status</label>
-                          <select name="Assignments" class="form-select" id="StatusChoose">
+                          <select name="Assignments" v-model = "assignForm.assignementStatus" class="form-select" id="StatusChoose" required="required">
                             <option value="Assigned">Assigned</option>
-                            <option value="Assigned">Unassigned</option>
-                            <option value="Assigned">Tentative</option>
-                            <option value="Assigned">Accepted</option>
+                            <option value="Unassigned">Unassigned</option>
+                            <option value="Tentative">Tentative</option>
+                            <option value="Accepted">Accepted</option>
+                          </select>
                         </div>
-                        <div class="col-12">
-                          <label for="GameChoose" class="form-label">Choose Game Details</label>
-                          <select name="Games" v-model = "assignForm.gameId" class="form-select" id="GameChoose">
-                            <option v-for="game in games" v-bind:value="game.id">{{ game.gameLocation }}</option>
-                        </div>
-                        
-                          <div class="col-12">
-                            <label for="RefereeChoose" class="form-label">Choose a Referee</label>
-                            <select name="Referees" v-model = "assignForm.refereeId" class="form-select" id="RefereeChoose">
-                              <option v-for="referee in referees" v-bind:value="referee.id">{{ referee.refereeName }}</option>
-                          </div>
-                          
-                          <div class="col-12">
-                            <label for="StatusChoose" class="form-label">Choose Assignment Status</label>
-                            <select name="Assignments" class="form-select" id="StatusChoose">
-                              <option value="Assigned">Assigned</option>
-                              <option value="Assigned">Unassigned</option>
-                              <option value="Assigned">Tentative</option>
-                              <option value="Assigned">Accepted</option>
-                          </div>
                         <!-- <div class="col-md-12">
                           <label for="inputMSRP" class="form-label">Manufacturer's Suggested Retail Price</label>
                           <input type="text" v-model = "refereeForm.msrp" class="form-control" id="inputCity" placeholder="$">
@@ -124,6 +110,7 @@
                       </form>
                 <!-- </formarea> -->
             </div>
+        </div>
           </main>
     
           <footer>

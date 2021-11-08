@@ -19,8 +19,10 @@ const app = { //const is faster, is not going to change
         gameForm:{},
         referees:{},
         games:{},
+        assignments:{},
         selectedBook:null,
         selectedGame:null,
+        selectedAssignment:null,
         assignForm:{}
     }
     },
@@ -87,6 +89,19 @@ const app = { //const is faster, is not going to change
             .then( (responseJson) => {
                 console.log(responseJson);
                 this.games = responseJson;
+            })
+            .catch( (err) => {
+                console.error(err);
+            })
+        },
+
+        fetchAssignmentData()
+        {
+            fetch('/api/assignment/')
+            .then( response => response.json() )
+            .then( (responseJson) => {
+                console.log(responseJson);
+                this.assignments = responseJson;
             })
             .catch( (err) => {
                 console.error(err);
@@ -168,6 +183,31 @@ const app = { //const is faster, is not going to change
               });
           },
 
+          deleteAssignment(a) {
+            if (!confirm("Are you sure you want to delete this assignment?")) {
+              return;
+            }
+            console.log("Deleted!", a);
+    
+            fetch('api/assignment/delete.php', {
+                method:'POST',
+                body: JSON.stringify(a),
+                headers: {
+                  "Content-Type": "application/json; charset=utf-8"
+                }
+              })
+              .then( response => response.json() )
+              .then( json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.assignments = json;
+    
+                // reset the form
+                this.resetAssignmentForm();
+                this.fetchAssignmentData();
+              });
+          },
+
         postNewOffer(evt)
         {
             console.log("Posted!");
@@ -223,6 +263,30 @@ const app = { //const is faster, is not going to change
                 this.fetchGameData();
             });
             this.resetGameForm();
+        },
+
+        prettyDollar(n) {
+            const d = new Intl.NumberFormat("en-US").format(n);
+            return "$ " + d;
+        },
+
+        postNewAssignment(evt)
+        {
+            console.log("Assignment Added!");
+            //alert("created");
+            fetch('api/assignment/create.php', {
+                method:'POST',
+                body: JSON.stringify(this.assignForm),
+                headers: {
+                    "Content-Type": "application/json; charset=utf-8"
+                }
+            })
+            .then(response => response.json() )
+            .then(json => {
+                console.log("Returned from post");
+                this.fetchAssignmentData();
+            });
+            this.resetAssignmentForm();
         },
 
         prettyDollar(n) {
@@ -294,11 +358,34 @@ const app = { //const is faster, is not going to change
             });
     },
 
+    editAssignment(evt) {
+        console.log("Updating!", this.assignForm);
+
+        fetch('api/assignment/update.php', {
+            method: 'POST',
+            body: JSON.stringify(this.assignForm),
+            headers: {
+                "Content-Type": "application/json; charset=utf-8"
+            }
+        })
+            .then(response => response.json())
+            .then(json => {
+                console.log("Returned from post:", json);
+                // TODO: test a result was returned!
+                this.assignments = json;
+                // reset the form
+                this.resetAssignmentForm();
+            });
+    },
+
     resetRefereeForm() {
         this.refereeForm = {};
     },
     resetGameForm() {
         this.gameForm = {};
+    },
+    resetAssignmentForm() {
+        this.assignForm = {};
     },
     selectRefereeToEdit(referee) {
 
@@ -309,6 +396,11 @@ const app = { //const is faster, is not going to change
 
         this.selectedGame = game;
         this.gameForm = Object.assign({}, game);
+    },
+    selectAssignmentToEdit(a) {
+
+        this.selectedAssignment = a;
+        this.assignForm = Object.assign({}, this.selectedAssignment);
     },
     
     postBook(evt) {
@@ -327,9 +419,14 @@ const app = { //const is faster, is not going to change
             this.selectedGame = null;
         }
     },
-    postAssign()
+    postAssign(evt)
     {
-        
+        if (this.selectedAssignment === null) {
+            this.postNewAssignment(evt);
+        } else {
+            this.editAssignment(evt);
+            this.selectedAssignment = null;
+        }
     }
 },
     created() //event hook
@@ -338,6 +435,7 @@ const app = { //const is faster, is not going to change
         //this.fetchBookData();
         this.fetchRefereeData();
         this.fetchGameData();
+        this.fetchAssignmentData();
     }
   }
 console.log("Creating and Mounting Vue Application");

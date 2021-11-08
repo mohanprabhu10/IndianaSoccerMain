@@ -18,7 +18,7 @@
       <h1>
         <a href="index.html">
         <img src ="img/indianasoccerdark.png" height = "100px">
-        </a> &nbsp; Indiana Soccer Referee Union
+        </a> &nbsp; Indiana Soccer Referees Association
     </h1>
     </header>
 
@@ -72,11 +72,11 @@
                     <form v-on:submit.prevent="postGame" class="row g-3">
                         <div class="col-md-12">
                           <label for="inputTitle" class="form-label">Game Location</label>
-                          <input type="text" v-model = "gameForm.gameLocation" class="form-control" id="inputTitle">
+                          <input type="text" v-model = "gameForm.gameLocation" class="form-control" id="inputTitle" required="required">
                         </div>
                         <div class="col-12">
                           <label for="inputYear" class="form-label">Game Date/Time</label>
-                          <input type="text" v-model = "gameForm.gameDate" class="form-control" id="inputAddress">
+                          <input type="text" v-model = "gameForm.gameDate" class="form-control" id="inputAddress" required="required">
                         </div>
                         <!-- <div class="col-md-12">
                           <label for="inputMSRP" class="form-label">Manufacturer's Suggested Retail Price</label>
