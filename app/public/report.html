@@ -50,13 +50,13 @@
                 <p>Referees and their assigned games in the given date range.</p>   
                 <div class="col-12">
                     <label for="inputStartYear" class="form-label">Start Date/Time</label>
-                    <input type="text" v-model = "dateForm.startDate" class="form-control" id="inputAddress">
+                    <input type="text" v-model = "dateForm.startDate" class="form-control" id="inputAddress" required="required" placeholder="YYYY-MM-DD HH:MM:SS">
                   </div>
                   <div class="col-12">
                     <label for="inputEndYear" class="form-label">End Date/Time</label>
-                    <input type="text" v-model = "dateForm.endDate" class="form-control" id="inputAddress">
+                    <input type="text" v-model = "dateForm.endDate" class="form-control" id="inputAddress" required="required" placeholder="YYYY-MM-DD HH:MM:SS">
                   </div>               
-                  <p><a href="/api/report/?format=csv" download>Export as CSV</a></p> 
+                  <p><a href="/api/report/index.php/?format=csv" download>Export as CSV</a></p> 
             </div>
           </main>
     

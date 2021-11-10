@@ -38,9 +38,7 @@ $stmt = $db->prepare(
 $stmt->execute([
   $_POST['refereeId'],
   $_POST['gameId'],
-  $_POST['assignementStatus'],
-  // $_POST['refereeId'],
-  // $_POST['gameId']
+  $_POST['assignementStatus']
 ]);
 
 // Get auto-generated PK from DB

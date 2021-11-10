@@ -75,7 +75,7 @@
                     <form v-on:submit.prevent="postAssign" class="row g-3">
                       <div class="col-12">
                         <label for="GameChoose" class="form-label">Choose Game Details</label>
-                        <select name="Games" v-model = "assignForm.ganeId" class="form-select" id="GameChoose" required="required">
+                        <select name="Games" v-model = "assignForm.gameId" class="form-select" id="GameChoose" required="required">
                           <option v-for="game in games" v-bind:value="game.id">{{ game.gameLocation}}, {{game.gameDate}}</option>
                         </select>
                       </div>
